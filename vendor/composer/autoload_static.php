@@ -53,6 +53,10 @@ class ComposerStaticInit65e2fabacf8ad577a7f184ecb7664491
             'Monolog\\' => 8,
             'Michelf\\' => 8,
         ),
+        'L' => 
+        array (
+            'Libs\\' => 5,
+        ),
         'J' => 
         array (
             'JMS\\SerializerBundle\\' => 21,
@@ -159,6 +163,10 @@ class ComposerStaticInit65e2fabacf8ad577a7f184ecb7664491
         'Michelf\\' => 
         array (
             0 => __DIR__ . '/..' . '/michelf/php-markdown/Michelf',
+        ),
+        'Libs\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/Libs',
         ),
         'JMS\\SerializerBundle\\' => 
         array (

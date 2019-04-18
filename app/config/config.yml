@@ -94,4 +94,17 @@ sensio_framework_extra:
     psr_message: { enabled: false } # Defaults to true if the PSR-7 bridge is installed
 
 
-nelmio_api_doc: ~
+nelmio_api_doc:
+    sandbox:
+        accept_type: "application/json"
+        body_format:
+            default_format: "json"
+
+fos_rest:
+    param_fetcher_listener: true
+    body_listener: true
+    routing_loader:
+        default_format: json
+        include_format: false
+    view:
+        view_response_listener: true

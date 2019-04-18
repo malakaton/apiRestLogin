@@ -4,6 +4,7 @@ namespace ApiBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
+use Libs\CustomExceptions;
 
 /**
  * UsersRepository
@@ -13,6 +14,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
  */
 class UsersRepository extends EntityRepository
 {
+    const _RESPONSE_CODE_OK = 200;
+    const _RESPONSE_CODE_USER_EMPTY = 401;
+    const _RESPONSE_CODE_PASSWORD_EMPTY = 402;
+    const _RESPONSE_CODE_USERNAME_NOT_EXIST = 403;
+    const _RESPONSE_CODE_CREDENTIALS_KO = 404;
+
     private $userList = array(
         array(
             "name" => "johnsnow@gmail.com",
@@ -47,10 +54,61 @@ class UsersRepository extends EntityRepository
             $users = new Users();
 
             $users->setName($user['name']);
-            $users->setPassword($encoder->encodePassword($users, $user['password']));
+            $users->setPassword($this->encryptPassword($encoder, $users, $user['password']));
             $em->persist($users);
             $em->flush();
         }
+    }
+
+    public function checkCredentials(UserPasswordEncoder $encoder, $user) {
+        try {
+            if (is_null($user->name)) {
+                throw new CustomExceptions("User name is empty", self::_RESPONSE_CODE_USER_EMPTY);
+            }
+            if (is_null($user->password)) {
+                throw new CustomExceptions("User password is empty", self::_RESPONSE_CODE_PASSWORD_EMPTY);
+            }
+            $users = new Users();
+            $users->setName($user->name);
+            $users->setPassword($this->encryptPassword($encoder, $users, $user->password));
+            if ($idUser = $this->getIdUser($users)) {
+                return $idUser;
+            } else {
+                if (!$this->findBy(array('name' => $users->getName()))) {
+                    throw new CustomExceptions(
+                        "User name: {$user->name} doesnt exist",
+                        self::_RESPONSE_CODE_USERNAME_NOT_EXIST
+                    );
+                } else {
+                    throw new CustomExceptions(
+                        "Combination of name: {$user->name} and password: {$user->password} are not ok",
+                        self::_RESPONSE_CODE_CREDENTIALS_KO
+                    );
+                }
+            }
+
+        } catch (CustomExceptions $ex) {
+            return array(
+                'message' => $ex->getMessage(),
+                'errorCode' => $ex->getCode()
+            );
+        }
+    }
+
+    public function getIdUser(Users $users) {
+        $user = $this->findBy(
+            array(
+                'name' => $users->getName(),
+                'password' => $users->getPassword()
+            )
+        );
+        $user = array_shift($user);
+
+        if (!empty($user)) {
+            return $user->getId();
+        }
+
+        return false;
     }
 
     public function deleteAllUsers() {
@@ -61,5 +119,9 @@ class UsersRepository extends EntityRepository
             $em->remove($user);
         }
         $em->flush();
+    }
+
+    private function encryptPassword(UserPasswordEncoder $encoder, Users $users, $password) {
+        return $encoder->encodePassword($users, $password);
     }
 }
