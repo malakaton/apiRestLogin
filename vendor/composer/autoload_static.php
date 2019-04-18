@@ -44,9 +44,14 @@ class ComposerStaticInit65e2fabacf8ad577a7f184ecb7664491
             'Psr\\Log\\' => 8,
             'Predis\\' => 7,
         ),
+        'N' => 
+        array (
+            'Negotiation\\' => 12,
+        ),
         'M' => 
         array (
             'Monolog\\' => 8,
+            'Michelf\\' => 8,
         ),
         'J' => 
         array (
@@ -55,6 +60,10 @@ class ComposerStaticInit65e2fabacf8ad577a7f184ecb7664491
         'I' => 
         array (
             'Incenteev\\ParameterHandler\\' => 27,
+        ),
+        'F' => 
+        array (
+            'FOS\\RestBundle\\' => 15,
         ),
         'D' => 
         array (
@@ -139,9 +148,17 @@ class ComposerStaticInit65e2fabacf8ad577a7f184ecb7664491
         array (
             0 => __DIR__ . '/..' . '/predis/predis/src',
         ),
+        'Negotiation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/willdurand/negotiation/src/Negotiation',
+        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Michelf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/michelf/php-markdown/Michelf',
         ),
         'JMS\\SerializerBundle\\' => 
         array (
@@ -150,6 +167,10 @@ class ComposerStaticInit65e2fabacf8ad577a7f184ecb7664491
         'Incenteev\\ParameterHandler\\' => 
         array (
             0 => __DIR__ . '/..' . '/incenteev/composer-parameter-handler',
+        ),
+        'FOS\\RestBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofsymfony/rest-bundle',
         ),
         'Doctrine\\Instantiator\\' => 
         array (
@@ -211,6 +232,13 @@ class ComposerStaticInit65e2fabacf8ad577a7f184ecb7664491
                 0 => __DIR__ . '/..' . '/phpcollection/phpcollection/src',
             ),
         ),
+        'N' => 
+        array (
+            'Nelmio\\ApiDocBundle' => 
+            array (
+                0 => __DIR__ . '/..' . '/nelmio/api-doc-bundle',
+            ),
+        ),
         'M' => 
         array (
             'Metadata\\' => 
@@ -220,6 +248,10 @@ class ComposerStaticInit65e2fabacf8ad577a7f184ecb7664491
         ),
         'J' => 
         array (
+            'JsonpCallbackValidator' => 
+            array (
+                0 => __DIR__ . '/..' . '/willdurand/jsonp-callback-validator/src',
+            ),
             'JMS\\Serializer' => 
             array (
                 0 => __DIR__ . '/..' . '/jms/serializer/src',

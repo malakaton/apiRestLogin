@@ -3,6 +3,7 @@
 namespace ApiBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 
 /**
  * UsersRepository
@@ -12,4 +13,53 @@ use Doctrine\ORM\EntityRepository;
  */
 class UsersRepository extends EntityRepository
 {
+    private $userList = array(
+        array(
+            "name" => "johnsnow@gmail.com",
+            "password" => "yT3u6",
+        ),
+        array(
+            "name" => "davidgoliat@gmail.com",
+            "password" => "iO7f47nK"
+        ),
+        array(
+            "name" => "praisethesun@darksouls.com",
+            "password" => "6Yu0pJ43"
+        ),
+        array(
+            "name" => "juansolo@hotmail.com",
+            "password" => "ui5345Po"
+        ),
+        array(
+            "name" => "dark_knight@yahoo.com",
+            "password" => "Pdf34dvD"
+        ),
+        array(
+            "name" => "gitgud@gmail.com",
+            "password" => "10RdTb98"
+        )
+    );
+
+    public function saveUsers(UserPasswordEncoder $encoder) {
+        $em = $this->getEntityManager();
+
+        foreach ($this->userList as $user) {
+            $users = new Users();
+
+            $users->setName($user['name']);
+            $users->setPassword($encoder->encodePassword($users, $user['password']));
+            $em->persist($users);
+            $em->flush();
+        }
+    }
+
+    public function deleteAllUsers() {
+        $users = $this->findAll();
+        $em = $this->getEntityManager();
+
+        foreach ($users as $user) {
+            $em->remove($user);
+        }
+        $em->flush();
+    }
 }

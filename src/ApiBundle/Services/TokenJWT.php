@@ -3,6 +3,9 @@ namespace ApiBundle\Services;
 
 class TokenJWT implements TokenJWTInterface {
 
+    const _EXPIRATION_TIME = "+12 hours";
+    const _MYSQL_FORMAT_DATETIME = 'Y-m-d H:i:s';
+
     private $header;
     private $base64UrlHeader;
     private $payload;
@@ -51,7 +54,7 @@ class TokenJWT implements TokenJWTInterface {
      */
     private function buildPayload($idUser) {
         // Create token payload as a JSON string
-        return json_encode(array('user_id' => $idUser));
+        return json_encode(array('user_id' => $idUser, 'exp' => $this->getExpirationDate()));
     }
 
     /**
@@ -79,6 +82,13 @@ class TokenJWT implements TokenJWTInterface {
             'abC123!',
             true
         );
+    }
+
+    public function getExpirationDate() {
+        $date = new \DateTime();
+        $date->modify(self::_EXPIRATION_TIME);
+
+        return strtotime($date->format(self::_MYSQL_FORMAT_DATETIME));
     }
 
 }

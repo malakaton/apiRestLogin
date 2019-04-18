@@ -11,3 +11,10 @@ services:
   api.token:
     class: ApiBundle\Services\TokenJWT
     arguments: []
+
+  redis.cache:
+    class: ApiBundle\Services\RedisCache
+    arguments: [@snc_redis.default]
+
+  passencoder_encoder:
+    class: ApiBundle\Services\PassEncoder

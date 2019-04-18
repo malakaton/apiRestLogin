@@ -2,12 +2,12 @@
 
 namespace ApiBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Users
  */
-class Users
+class Users implements UserInterface
 {
     /**
      * @var integer
@@ -79,5 +79,25 @@ class Users
     public function getPassword()
     {
         return $this->password;
+    }
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getRoles()
+    {
+        // TODO: Implement getRoles() method.
+    }
+
+    public function getUsername()
+    {
+        // TODO: Implement getUsername() method.
     }
 }
