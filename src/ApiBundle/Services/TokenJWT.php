@@ -1,11 +1,15 @@
 <?php
 namespace ApiBundle\Services;
 
+use Symfony\Component\Config\Definition\Exception\Exception;
+
 class TokenJWT implements TokenJWTInterface {
 
     const _EXPIRATION_TIME = "+12 hours";
     const _MYSQL_FORMAT_DATETIME = 'Y-m-d H:i:s';
 
+    private $idUser;
+    private $userName;
     private $header;
     private $base64UrlHeader;
     private $payload;
@@ -22,14 +26,27 @@ class TokenJWT implements TokenJWTInterface {
         $this->header = $this->buildHeader();
     }
 
-    public function execute($idUser, $userName) {
-        $this->payload = $this->buildPayload($idUser, $userName);
-        $this->base64UrlHeader = $this->encodeToBase64($this->header);
-        $this->base64UrlPayload = $this->encodeToBase64($this->payload);
-        $this->signature = $this->buildSignature();
-        $this->base64UrlSignature = $this->encodeToBase64($this->signature);
+    public function execute() {
+        try {
+            if ((is_null($this->idUser) && !is_numeric($this->idUser)) || (is_null($this->userName))) {
+                throw new Exception('User info error');
+            }
+            $this->payload = $this->buildPayload($this->idUser, $this->userName);
+            $this->base64UrlHeader = $this->encodeToBase64($this->header);
+            $this->base64UrlPayload = $this->encodeToBase64($this->payload);
+            $this->signature = $this->buildSignature();
+            $this->base64UrlSignature = $this->encodeToBase64($this->signature);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
 
-        return $this->base64UrlHeader . "." . $this->base64UrlPayload . "." . $this->base64UrlSignature;
+    public function setIdUser($idUser) {
+        $this->idUser = $idUser;
+    }
+
+    public function setUserName($userName) {
+        $this->userName = $userName;
     }
 
     /**
@@ -38,7 +55,11 @@ class TokenJWT implements TokenJWTInterface {
      * @return string
      */
     public function returnToken(){
-        return $this->base64UrlHeader . "." . $this->base64UrlPayload . "." . $this->base64UrlSignature;
+        if (is_null($this->base64UrlPayload)) {
+            return false;
+        } else {
+            return $this->base64UrlHeader . "." . $this->base64UrlPayload . "." . $this->base64UrlSignature;
+        }
     }
 
     /**

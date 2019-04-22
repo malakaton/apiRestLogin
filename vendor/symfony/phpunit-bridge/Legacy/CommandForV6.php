@@ -9,33 +9,31 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Bridge\PhpUnit\TextUI;
+namespace Symfony\Bridge\PhpUnit\Legacy;
 
+use PHPUnit\TextUI\Command as BaseCommand;
+use PHPUnit\TextUI\TestRunner as BaseRunner;
 use Symfony\Bridge\PhpUnit\SymfonyTestsListener;
-
-if (!class_exists('PHPUnit_TextUI_TestRunner')) {
-    return;
-}
 
 /**
  * {@inheritdoc}
+ *
+ * @internal
  */
-class TestRunner extends \PHPUnit_TextUI_TestRunner
+class CommandForV6 extends BaseCommand
 {
     /**
      * {@inheritdoc}
      */
-    protected function handleConfiguration(array &$arguments)
+    protected function createRunner(): BaseRunner
     {
         $listener = new SymfonyTestsListener();
 
-        $result = parent::handleConfiguration($arguments);
-
-        $arguments['listeners'] = isset($arguments['listeners']) ? $arguments['listeners'] : array();
+        $this->arguments['listeners'] = isset($this->arguments['listeners']) ? $this->arguments['listeners'] : [];
 
         $registeredLocally = false;
 
-        foreach ($arguments['listeners'] as $registeredListener) {
+        foreach ($this->arguments['listeners'] as $registeredListener) {
             if ($registeredListener instanceof SymfonyTestsListener) {
                 $registeredListener->globalListenerDisabled();
                 $registeredLocally = true;
@@ -44,9 +42,9 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
         }
 
         if (!$registeredLocally) {
-            $arguments['listeners'][] = $listener;
+            $this->arguments['listeners'][] = $listener;
         }
 
-        return $result;
+        return parent::createRunner();
     }
 }

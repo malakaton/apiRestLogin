@@ -74,11 +74,15 @@ class LoginController extends Controller
                 json_decode($user)
             );
             if (isset($responseUser['idUser'])) {
+                $tokenService->setIdUser($responseUser['idUser']);
+                $tokenService->setUserName($responseUser['userName']);
+                $tokenService->execute();
+
                 $code = UsersRepository::_RESPONSE_CODE_OK;
                 $error = false;
                 $userToken = array(
                     'id_user' => $responseUser['idUser'],
-                    'token_user' => $tokenService->execute($responseUser['idUser'], $responseUser['userName'])
+                    'token_user' => $tokenService->returnToken()
                 );
             } else {
                 $code = $responseUser['errorCode'];

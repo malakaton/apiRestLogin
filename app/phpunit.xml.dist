@@ -9,6 +9,7 @@
 >
     <php>
         <ini name="error_reporting" value="-1" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled" />
         <!--
             <server name="KERNEL_DIR" value="/path/to/your/app/" />
         -->
@@ -23,16 +24,9 @@
     </testsuites>
 
     <filter>
-        <whitelist>
-            <directory>../src</directory>
-            <exclude>
-                <directory>../src/*Bundle/Resources</directory>
-                <directory>../src/*Bundle/Tests</directory>
-                <directory>../src/*/*Bundle/Resources</directory>
-                <directory>../src/*/*Bundle/Tests</directory>
-                <directory>../src/*/Bundle/*Bundle/Resources</directory>
-                <directory>../src/*/Bundle/*Bundle/Tests</directory>
-            </exclude>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory>../src/ApiBundle/Tests</directory>
         </whitelist>
     </filter>
+    <log type="coverage-clover" target="clover.xml"/>
 </phpunit>
