@@ -22,12 +22,14 @@ class TokenJWT implements TokenJWTInterface {
         $this->header = $this->buildHeader();
     }
 
-    public function execute($idUser) {
-        $this->payload = $this->buildPayload($idUser);
+    public function execute($idUser, $userName) {
+        $this->payload = $this->buildPayload($idUser, $userName);
         $this->base64UrlHeader = $this->encodeToBase64($this->header);
         $this->base64UrlPayload = $this->encodeToBase64($this->payload);
         $this->signature = $this->buildSignature();
         $this->base64UrlSignature = $this->encodeToBase64($this->signature);
+
+        return $this->base64UrlHeader . "." . $this->base64UrlPayload . "." . $this->base64UrlSignature;
     }
 
     /**
@@ -49,12 +51,13 @@ class TokenJWT implements TokenJWTInterface {
 
     /**
      * @param $idUser
+     * @param $userName
      *
      * @return false|string
      */
-    private function buildPayload($idUser) {
+    private function buildPayload($idUser, $userName) {
         // Create token payload as a JSON string
-        return json_encode(array('user_id' => $idUser, 'exp' => $this->getExpirationDate()));
+        return json_encode(array('user_id' => $idUser, 'user_name' => $userName, 'exp' => $this->getExpirationDate()));
     }
 
     /**

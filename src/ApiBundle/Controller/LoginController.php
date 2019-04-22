@@ -65,17 +65,21 @@ class LoginController extends Controller
     private function setTokenForUsers($users, UsersRepository $usersRepository) {
         $responseApi = array();
         $message = null;
-        $idUser = null;
+        $userToken = null;
+        $tokenService = $this->get('api.token');
 
         foreach ($users as $user) {
             $responseUser = $usersRepository->checkCredentials(
                 $this->container->get('security.password_encoder'),
                 json_decode($user)
             );
-            if (is_numeric($responseUser)) {
+            if (isset($responseUser['idUser'])) {
                 $code = UsersRepository::_RESPONSE_CODE_OK;
                 $error = false;
-                $idUser = $responseUser;
+                $userToken = array(
+                    'id_user' => $responseUser['idUser'],
+                    'token_user' => $tokenService->execute($responseUser['idUser'], $responseUser['userName'])
+                );
             } else {
                 $code = $responseUser['errorCode'];
                 $error = true;
@@ -85,7 +89,7 @@ class LoginController extends Controller
             $response = array(
                 'code'  => $code,
                 'error' => $error,
-                'data'  => $code === UsersRepository::_RESPONSE_CODE_OK ? $idUser : $message
+                'data'  => $code === UsersRepository::_RESPONSE_CODE_OK ? $userToken : $message
             );
             array_push($responseApi, $response);
         }

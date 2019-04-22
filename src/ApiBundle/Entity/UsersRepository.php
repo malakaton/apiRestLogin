@@ -72,7 +72,7 @@ class UsersRepository extends EntityRepository
             $users->setName($user->name);
             $users->setPassword($this->encryptPassword($encoder, $users, $user->password));
             if ($idUser = $this->getIdUser($users)) {
-                return $idUser;
+                return array('idUser' => $idUser, 'userName' => $users->getName());
             } else {
                 if (!$this->findBy(array('name' => $users->getName()))) {
                     throw new CustomExceptions(
