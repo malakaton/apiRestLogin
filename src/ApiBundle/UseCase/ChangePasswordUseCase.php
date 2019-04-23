@@ -5,6 +5,7 @@ namespace ApiBundle\UseCase;
 
 use ApiBundle\Entity\Users;
 use ApiBundle\Entity\UsersRepository;
+use ApiBundle\Services\TokenJWT;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 
 class ChangePasswordUseCase
@@ -58,6 +59,33 @@ class ChangePasswordUseCase
         }
 
         return true;
+    }
+
+    public function processChangePassword($tokenJwt, $newPassword) {
+        $tokenJwtService = new TokenJWT();
+
+        if ($tokenJwtService->verifiyToken($tokenJwt)) {
+            $data = $tokenJwtService->getPayloadFromToken($tokenJwt);
+            return $this->saveNewPassword($data->user_id, $newPassword);
+        }
+
+        return false;
+    }
+
+    public function saveNewPassword($userId, $newPassword) {
+        if (!empty($userId) && !empty($newPassword)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getUserName() {
+        return $this->userObject->name;
+    }
+
+    public function getUserPassword() {
+        return $this->userObject->password;
     }
 
     protected function callExit() {

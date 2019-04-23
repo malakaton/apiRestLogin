@@ -10,7 +10,7 @@ services:
 
   api.token:
     class: ApiBundle\Services\TokenJWT
-    arguments: []
+    arguments: [%secret%]
 
   redis.cache:
     class: ApiBundle\Services\RedisCache

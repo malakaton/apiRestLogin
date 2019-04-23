@@ -7,7 +7,9 @@ class TokenJWT implements TokenJWTInterface {
 
     const _EXPIRATION_TIME = "+12 hours";
     const _MYSQL_FORMAT_DATETIME = 'Y-m-d H:i:s';
+    const _SECRET_KEY = 'd1c43247cc5c6e47274210f446b9644f9';
 
+    private $secretKey;
     private $idUser;
     private $userName;
     private $header;
@@ -20,9 +22,12 @@ class TokenJWT implements TokenJWTInterface {
     /**
      * TokenJWT constructor.
      *
+     * @param $secretKey
+     *
      * @param $idUser
      */
     public function __construct() {
+        $this->secretKey = self::_SECRET_KEY;
         $this->header = $this->buildHeader();
     }
 
@@ -62,6 +67,35 @@ class TokenJWT implements TokenJWTInterface {
         }
     }
 
+    public function verifiyToken($tokenJwt) {
+        //Dividimos el token a partir del punto
+        $jwtValues = explode('.', $tokenJwt);
+
+        // extraemos la firma, header, payload a partir del jwt original
+        $this->base64UrlHeader = $jwtValues[0];
+        $this->base64UrlPayload = $jwtValues[1];
+        $this->signature = $jwtValues[2];
+
+        //Decodificamos la firma del token
+        $this->base64UrlSignature = $this->decodeSignature();
+
+        // Verificamos si el token es correcto
+        if($this->base64UrlSignature == $this->signature) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getPayloadFromToken($tokenJwt) {
+        //Dividimos el token a partir del punto
+        $jwtValues = explode('.', $tokenJwt);
+
+        $this->base64UrlPayload = $jwtValues[1];
+
+        return json_decode($this->decodeToBase64($this->base64UrlPayload));
+    }
+
     /**
      * @return false|string
      */
@@ -96,6 +130,24 @@ class TokenJWT implements TokenJWTInterface {
     }
 
     /**
+     * @param $value
+     *
+     * @return mixed
+     */
+    private function decodeToBase64($value) {
+        // Encode value to Base64Url String
+        return str_replace(
+            array('+', '/', '='),
+            array('-', '_', ''),
+            base64_decode($value)
+        );
+    }
+
+    private function decodeSignature() {
+        return $this->encodeToBase64($this->buildSignature());
+    }
+
+    /**
      * @return string
      */
     private function buildSignature() {
@@ -103,7 +155,7 @@ class TokenJWT implements TokenJWTInterface {
         return hash_hmac(
             'sha256',
             $this->base64UrlHeader . "." . $this->base64UrlPayload,
-            'abC123!',
+            $this->secretKey,
             true
         );
     }
