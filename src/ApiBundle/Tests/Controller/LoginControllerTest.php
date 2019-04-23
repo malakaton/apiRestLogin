@@ -7,6 +7,16 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class LoginControllerTest extends WebTestCase
 {
+    private $container;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUp()
+    {
+        self::bootKernel();
+        $this->container = static::$kernel->getContainer();
+    }
 
     public function testUsersEntity() {
         $users = new Users();
@@ -19,7 +29,7 @@ class LoginControllerTest extends WebTestCase
 
     public function testEncodeUserPassword() {
         self::bootKernel();
-        $encoder = static::$kernel->getContainer()->get('security.password_encoder');
+        $encoder = $this->container->get('security.password_encoder');
         $users = new Users();
 
         $users->setName('johnsnow@gmail.com');

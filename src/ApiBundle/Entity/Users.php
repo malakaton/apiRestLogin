@@ -49,6 +49,20 @@ class Users implements UserInterface
     }
 
     /**
+     * set id
+     *
+     * @param $id
+     *
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Get name
      *
      * @return string 
