@@ -3,6 +3,13 @@ namespace ApiBundle\Services;
 
 use Symfony\Component\Config\Definition\Exception\Exception;
 
+/**
+ * Generate a JWT Token for the user, where the payload is the userId and userName.
+ * Also have a method to decode jwt token to check if jwt token is correct to be accepted in the api
+ *
+ * Class TokenJWT
+ * @package ApiBundle\Services
+ */
 class TokenJWT implements TokenJWTInterface {
 
     const _EXPIRATION_TIME = "+12 hours";
@@ -31,6 +38,9 @@ class TokenJWT implements TokenJWTInterface {
         $this->header = $this->buildHeader();
     }
 
+    /**
+     * Will return a jwt token
+     */
     public function execute() {
         try {
             if ((is_null($this->idUser) && !is_numeric($this->idUser)) || (is_null($this->userName))) {
@@ -67,6 +77,13 @@ class TokenJWT implements TokenJWTInterface {
         }
     }
 
+    /**
+     * Check if the jwt token passed in the argument is valid
+     *
+     * @param $tokenJwt
+     *
+     * @return bool
+     */
     public function verifiyToken($tokenJwt) {
         //Dividimos el token a partir del punto
         $jwtValues = explode('.', $tokenJwt);
@@ -87,6 +104,14 @@ class TokenJWT implements TokenJWTInterface {
         }
     }
 
+    /**
+     * Receive a token like an argument and will be decode to have the payload info, if the token is valid
+     * will be return a userid, username and expiration date
+     *
+     * @param $tokenJwt
+     *
+     * @return mixed
+     */
     public function getPayloadFromToken($tokenJwt) {
         //Dividimos el token a partir del punto
         $jwtValues = explode('.', $tokenJwt);
@@ -104,11 +129,13 @@ class TokenJWT implements TokenJWTInterface {
        return json_encode(array('typ' => 'JWT', 'alg' => 'HS256'));
     }
 
+
     /**
      * @param $idUser
      * @param $userName
      *
      * @return false|string
+     * @throws \Exception
      */
     private function buildPayload($idUser, $userName) {
         // Create token payload as a JSON string
@@ -160,6 +187,12 @@ class TokenJWT implements TokenJWTInterface {
         );
     }
 
+    /**
+     * Calculate the expiration date, add +12 hours on current system date
+     *
+     * @return false|int
+     * @throws \Exception
+     */
     public function getExpirationDate() {
         $date = new \DateTime();
         $date->modify(self::_EXPIRATION_TIME);

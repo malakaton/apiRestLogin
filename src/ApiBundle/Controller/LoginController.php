@@ -57,11 +57,28 @@ class LoginController extends Controller
         );
     }
 
+    /**
+     * Save users list in redis cache
+     *
+     * @param RedisCache $redis
+     */
     private function saveUsersToRedis(RedisCache $redis) {
         $redis->deleteAll();
         $redis->setUsers();
     }
 
+    /**
+     *
+     * Will receive an array of users, for every user will be check if credentials are ok (username and password)
+     * If the credentials are ok will be return a token jwt to authorize the user to login, if not
+     * will be return the error code and error message to inform at the api the problem appeared. When
+     * loop of the array user finished will be return an array of response to the api call loginCheck
+     *
+     * @param                 $users
+     * @param UsersRepository $usersRepository
+     *
+     * @return array
+     */
     private function setTokenForUsers($users, UsersRepository $usersRepository) {
         $responseApi = array();
         $message = null;

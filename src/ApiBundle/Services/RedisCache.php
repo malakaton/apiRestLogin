@@ -3,6 +3,12 @@ namespace ApiBundle\Services;
 
 use Predis\Client as Redis;
 
+/**
+ * Used to save in redis cache a persist user list
+ *
+ * Class RedisCache
+ * @package ApiBundle\Services
+ */
 class RedisCache {
 
     CONST _USERS_KEYS = "users";

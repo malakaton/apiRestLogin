@@ -47,6 +47,13 @@ class UsersRepository extends EntityRepository
         )
     );
 
+    /**
+     *
+     * Only used to save users in database, will save his name and password (encrypted)
+     * @param UserPasswordEncoder $encoder
+     *
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function saveUsers(UserPasswordEncoder $encoder) {
         $em = $this->getEntityManager();
 
@@ -60,6 +67,17 @@ class UsersRepository extends EntityRepository
         }
     }
 
+    /**
+     * check if the username and password are ok, for example, the username exist in database, the password
+     * is the correct for this user, the password is not empty. If the data of user is ok will be return
+     * an array with his iduser and jwt token, if not will be return an exception with his error code and error
+     * message
+     *
+     * @param UserPasswordEncoder $encoder
+     * @param                     $user
+     *
+     * @return array
+     */
     public function checkCredentials(UserPasswordEncoder $encoder, $user) {
         try {
             if (is_null($user->name)) {
@@ -95,6 +113,13 @@ class UsersRepository extends EntityRepository
         }
     }
 
+    /**
+     * Return the user data findby username and password
+     *
+     * @param Users $users
+     *
+     * @return bool
+     */
     public function getIdUser(Users $users) {
         $user = $this->findBy(
             array(
@@ -111,6 +136,11 @@ class UsersRepository extends EntityRepository
         return false;
     }
 
+    /**
+     * Delete all users of table users in database
+     *
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function deleteAllUsers() {
         $users = $this->findAll();
         $em = $this->getEntityManager();
@@ -121,6 +151,15 @@ class UsersRepository extends EntityRepository
         $em->flush();
     }
 
+    /**
+     * Encrypt the password of user
+     *
+     * @param UserPasswordEncoder $encoder
+     * @param Users               $users
+     * @param                     $password
+     *
+     * @return string
+     */
     private function encryptPassword(UserPasswordEncoder $encoder, Users $users, $password) {
         return $encoder->encodePassword($users, $password);
     }

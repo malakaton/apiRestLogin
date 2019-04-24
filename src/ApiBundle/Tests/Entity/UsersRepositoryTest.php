@@ -21,6 +21,10 @@ class UsersRepositoryTest extends WebTestCase
         $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
     }
 
+    /**
+     * Verify if the username and password writed in the test are ok and the method checkCredentials works fine
+     * and return an array with attributes idUser and userName if the credentials are ok
+     */
     public function testCheckCredentials()
     {
         $userData = new \stdClass();
@@ -37,6 +41,10 @@ class UsersRepositoryTest extends WebTestCase
         $this->assertArrayHasKey('userName', $user);
     }
 
+    /**
+     * Verify that checkCredentials will return an array with attributes message and errorCode when the method
+     * checkCredentials fails because the credentials are bad
+     */
     public function testFailCredentials()
     {
         $userData = new \stdClass();

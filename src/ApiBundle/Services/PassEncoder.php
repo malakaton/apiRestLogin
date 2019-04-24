@@ -3,6 +3,12 @@ namespace ApiBundle\Services;
 
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
+/**
+ * Used to encrypt a value with sha1 hash
+ *
+ * Class PassEncoder
+ * @package ApiBundle\Services
+ */
 class PassEncoder implements PasswordEncoderInterface{
 
     public function encodePassword($raw, $salt)

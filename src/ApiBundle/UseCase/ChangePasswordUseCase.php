@@ -8,6 +8,12 @@ use ApiBundle\Entity\UsersRepository;
 use ApiBundle\Services\TokenJWT;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 
+/**
+ * Use case for change Password of user
+ *
+ * Class ChangePasswordUseCase
+ * @package ApiBundle\UseCase
+ */
 class ChangePasswordUseCase
 {
     const _ERROR_PASSWORD = 'Error changing password';
@@ -32,6 +38,9 @@ class ChangePasswordUseCase
         $this->encoder = $encoder;
     }
 
+    /**
+     * Will check if the user logged well and his credentials are ok, if not will return an error and exit
+     */
     public function setLogin() {
         $userCheckCredentials = $this->usersRepository->checkCredentials(
             $this->encoder,
@@ -50,6 +59,15 @@ class ChangePasswordUseCase
         }
     }
 
+    /**
+     * Needed to change the password of the user, will verify if the oldPassword is the same of
+     * his current password, and newPassword is not empty
+     *
+     * @param $oldPassword
+     * @param $newPassword
+     *
+     * @return bool
+     */
     public function checkPassword($oldPassword, $newPassword) {
         if ($oldPassword != $this->userEntity->getPassword() || empty($oldPassword) ||
             is_null($this->userEntity->getPassword()) || empty($newPassword)
@@ -61,6 +79,15 @@ class ChangePasswordUseCase
         return true;
     }
 
+    /**
+     * If the setLogin is ok and checkPassword return true, will verify if the jwt token of the user is ok, in case
+     * that token is ok will be processed to change the password if not will return false
+     *
+     * @param $tokenJwt
+     * @param $newPassword
+     *
+     * @return bool
+     */
     public function processChangePassword($tokenJwt, $newPassword) {
         $tokenJwtService = new TokenJWT();
 
@@ -80,13 +107,20 @@ class ChangePasswordUseCase
         return false;
     }
 
+    /**
+     * @return mixed
+     */
     public function getUserName() {
         return $this->userObject->name;
     }
 
+    /**
+     * @return mixed
+     */
     public function getUserPassword() {
         return $this->userObject->password;
     }
+
 
     protected function callExit() {
         exit;
