@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff7a2c7b-13e8-4b8d-964a-88674942fa7f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/ApiBundle/Controller/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApiBundle/Controller/LoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ApiBundle/Entity/UsersRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApiBundle/Entity/UsersRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ApiBundle/Services/PassEncoder.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApiBundle/Services/PassEncoder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ApiBundle/Services/RedisCache.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApiBundle/Services/RedisCache.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ApiBundle/Services/TokenJWT.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApiBundle/Services/TokenJWT.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ApiBundle/Tests/Controller/LoginControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApiBundle/Tests/Controller/LoginControllerTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ApiBundle/Tests/Entity/UsersRepositoryTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApiBundle/Tests/Entity/UsersRepositoryTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ApiBundle/Tests/Services/TokenJWTTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApiBundle/Tests/Services/TokenJWTTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ApiBundle/Tests/UseCase/ChangePasswordUseCaseTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApiBundle/Tests/UseCase/ChangePasswordUseCaseTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ApiBundle/UseCase/ChangePasswordUseCase.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApiBundle/UseCase/ChangePasswordUseCase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,20 +44,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ApiBundle/Tests/UseCase/ChangePasswordUseCaseTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="537">
-              <caret line="203" column="7" lean-forward="true" selection-start-line="203" selection-start-column="7" selection-end-line="203" selection-end-column="7" />
+            <state relative-caret-position="492">
+              <caret line="182" column="5" selection-start-line="182" selection-start-column="5" selection-end-line="182" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/ApiBundle/UseCase/ChangePasswordUseCase.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="777">
-              <caret line="109" column="7" lean-forward="true" selection-start-line="109" selection-start-column="7" selection-end-line="109" selection-end-column="7" />
-              <folding>
-                <element signature="e#38#65#0#PHP" expanded="true" />
-              </folding>
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="583">
+                <caret line="83" column="28" lean-forward="true" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="28" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -93,7 +84,6 @@
         <option value="$PROJECT_DIR$/src/ApiBundle/Services/GenerateToken.php" />
         <option value="$PROJECT_DIR$/src/ApiBundle/Services/CacheInterface.php" />
         <option value="$PROJECT_DIR$/src/ApiBundle/Services/RedisService.php" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/ApiBundle/Resources/config/routing.yml" />
         <option value="$PROJECT_DIR$/app/config/security.yml" />
         <option value="$PROJECT_DIR$/app/config/routing.yml" />
@@ -119,6 +109,7 @@
         <option value="$PROJECT_DIR$/src/ApiBundle/Tests/Services/TokenJWTTest.php" />
         <option value="$PROJECT_DIR$/src/ApiBundle/Tests/UseCase/ChangePasswordUseCaseTest.php" />
         <option value="$PROJECT_DIR$/src/ApiBundle/UseCase/ChangePasswordUseCase.php" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -347,7 +338,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73181000" />
+    <option name="totallyTimeSpent" value="75144000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1366" y="34" width="1920" height="1046" extended-state="6" />
@@ -406,16 +397,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="297">
           <caret line="115" column="3" selection-start-line="115" selection-start-column="3" selection-end-line="115" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="45">
-            <caret line="3" column="53" selection-start-line="3" selection-start-column="53" selection-end-line="3" selection-end-column="53" />
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>
@@ -697,20 +678,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ApiBundle/Tests/UseCase/ChangePasswordUseCaseTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="203" column="7" lean-forward="true" selection-start-line="203" selection-start-column="7" selection-end-line="203" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ApiBundle/UseCase/ChangePasswordUseCase.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="777">
+        <state relative-caret-position="1635">
           <caret line="109" column="7" lean-forward="true" selection-start-line="109" selection-start-column="7" selection-end-line="109" selection-end-column="7" />
           <folding>
             <element signature="e#38#65#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ApiBundle/Tests/UseCase/ChangePasswordUseCaseTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="492">
+          <caret line="182" column="5" selection-start-line="182" selection-start-column="5" selection-end-line="182" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="583">
+            <caret line="83" column="28" lean-forward="true" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="28" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
